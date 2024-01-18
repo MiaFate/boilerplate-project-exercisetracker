@@ -14,7 +14,7 @@ const exerciseSchema = new mongoose.Schema({
     required: [true, "Must include a duration"]
   },
   date: {
-    type: String,
+    type: Date,
   }
 })
 
