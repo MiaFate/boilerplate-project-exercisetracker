@@ -67,7 +67,7 @@ app.post('/api/users/:_id/exercises', async function(req, res) {
     let month = pastDate.getUTCMonth()
     let year = pastDate.getUTCFullYear()
     //fixedDate = date ? `${days[dayName]} ${months[month]} ${day} ${year}` : new Date().toDateString()
-    fixedDate = date ? new Date(date).toDateString() : new Date().toDateString()
+    fixedDate = date ? new Date(date) : new Date()
 
 
     const newExercise = new ExerciseModel({
@@ -83,7 +83,7 @@ app.post('/api/users/:_id/exercises', async function(req, res) {
       username: user.username,
       description: exercise.description,
       duration: exercise.duration,
-      date: exercise.date
+      date: exercise.date.toDateString()
     })
   } catch (error) {
     res.json({ error: error.message })
@@ -104,7 +104,7 @@ app.get('/api/users/:_id/logs', async function(req, res) {
       return {
         description,
         duration,
-        date
+        date: date.toDateString()
       }
     })
 
