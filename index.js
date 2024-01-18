@@ -94,11 +94,26 @@ app.post('/api/users/:_id/exercises', async function(req, res) {
 app.get('/api/users/:_id/logs', async function(req, res) {
   try {
     const { _id } = req.params
+    const { from, to, limit } = req.query;
 
     const user = await UserModel.findById(_id)
     if (!user) throw new Error("User not found")
 
-    const list = await ExerciseModel.find({})
+    let dateObj = {}
+    if (from) {
+      dateObj["gte"] = new Date(from)
+    }
+    if (to) {
+      dateObj["lte"] = new Date(to)
+    }
+    let filter = {
+      userId: _id
+    }
+    if (from || to) {
+      filter.date = dateObj
+    }
+
+    const list = await ExerciseModel.find(filter).limit(+limit ?? 500)
 
     const log = list.map(({ description, duration, date }) => {
       return {
