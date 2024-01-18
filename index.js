@@ -77,12 +77,12 @@ app.post('/api/users/:_id/exercises', async function(req, res) {
     })
     const exercise = await newExercise.save()
 
-    res.status(200).json({
+    res.json({
+      _id: exercise.userId,
       username: user.username,
       description: exercise.description,
       duration: exercise.duration,
-      date: exercise.date,
-      _id: exercise.userId
+      date: exercise.date
     })
   } catch (error) {
     res.json({ error: error.message })
