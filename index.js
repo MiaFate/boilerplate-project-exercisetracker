@@ -66,7 +66,8 @@ app.post('/api/users/:_id/exercises', async function(req, res) {
     let day = pastDate.getUTCDate()
     let month = pastDate.getUTCMonth()
     let year = pastDate.getUTCFullYear()
-    fixedDate = date ? `${days[dayName]} ${months[month]} ${day} ${year}` : new Date().toDateString()
+    //fixedDate = date ? `${days[dayName]} ${months[month]} ${day} ${year}` : new Date().toDateString()
+    fixedDate = date ? new Date(date).toDateString() : new Date().toDateString()
 
 
     const newExercise = new ExerciseModel({
